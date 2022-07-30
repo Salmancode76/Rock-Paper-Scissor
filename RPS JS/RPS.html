@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="template/4144475.png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rock-Paper-Scissor</title>
+</head>
+<body>
+	<h1 id="title"> Rock-Paper-Scissor</h1>
+	<div id="link"> <a href="C:\Users\salma\OneDrive\Desktop\RPS JS\RPS aboutus.html"><img id="pic"src="template/information-about-us-icon-16.png"/></a></a></div>
+	<div id="page">
+		<div id="rps-pic">
+			<img id="rps-pic" src ="template/rock-paper-scissors-today-tease-160317.jpg">
+
+		</div>
+		<div id="input" class="h-100 d-flex align-items-center justify-content-center">
+			Highest score to win (Please only enter whole numbers ) <br>
+			<input id="limit" class="form-control-input" type="number">
+			<button id="enter"class="btn btn-outline-secondary" onclick="endgame(document.getElementById('limit').value)">Enter</button>
+			</div>
+	<div class="h-100 d-flex align-items-center justify-content-center" id="buttons">
+	<button onclick="humanunput(this)"class="btn btn-danger">Rock</button>
+	<button onclick="humanunput(this)"class="btn btn-primary">Paper</button>
+	<button onclick="humanunput(this)" class="btn btn-dark">Scissor</button>
+	</div>
+	<p></p>
+	<div style="position:relative; bottom: 20px;" >
+	<p id="result" class="h-100 d-flex align-items-center justify-content-center"style="position: relative;bottom: 200px;" >
+	</p>
+	<p id="condition" class="h-100 d-flex align-items-center justify-content-center" style="position: relative;bottom: 200px;"></p>
+	<p id="score" class="h-100 d-flex align-items-center justify-content-center" style="position: relative;bottom: 190px;">
+		AI score = 0   Human score = 0
+	</p>
+	</div>
+	</div>
+	<div id="finales" style="display:none;"class="h-100 d-flex align-items-center justify-content-center">
+		<p id="finale"></p>
+	</div>
+	</body>
+	</html>
+	<style>
+		body{background-color:  #ffffff;
+		background-image: url("template/thumb-1920-8.jpg");
+		font-family: 'Roboto Condensed', sans-serif;
+
+	}
+		#page{
+			font-size: 20px;
+			position: relative;
+			margin: -12px;
+			padding: 20px;
+			top: 250px;
+			
+		}
+		#buttons{
+			position: relative;
+			bottom: 230px;
+		}
+		#limit {
+			border-radius: 10px;
+			position: relative;
+			left: 5px;
+		}
+		#enter{
+			position: relative;
+			left: 10px;
+		}
+		#score{
+			position: relative;
+			bottom: 450px;;
+		}
+		#finale{
+			position: relative;
+			margin: -12px;
+			padding: 20px;
+			top: 250px;
+			font-size: 70px;
+			bottom: 250px;;
+		}
+		#pic{
+			position: absolute;
+			top: 8px;
+			right: 16px;
+			width: 100px;
+		}
+		#title{
+			text-align: center;
+			font-weight: bolder;
+			text-decoration: underline;
+		}
+		#rps-pic{
+			position: relative;
+			bottom: 130px;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 500px;
+		}
+		#input{
+			position: relative;
+			bottom: 250px;
+		}
+		#codition{
+			position: relative;
+			bottom: 150px;;
+		}
+	</style>
+	<script type="text/javascript">
+		const ele = document.getElementById("page");
+		let humanscore=0;
+		let aiscore=0;
+		let bb=0
+		let a=''
+		function humanunput(c)
+		{
+			let choice= c.textContent;
+			console.log(choice);
+			let AIchoice =getAIchoice();
+			document.getElementById("result").innerText= choice+'' + ' vs '+ ''+ AIchoice+'';
+			let result = calculator(AIchoice,choice);
+			score();
+			endgame(document.getElementById('limit').value);
+			return choice;
+		}
+		function getAIchoice()
+		{
+			const options =["Rock","Paper","Scissor"];
+			let getAIchoice=options[Math.floor(Math.random()*options.length)];
+			console.log(getAIchoice);
+			return getAIchoice;
+		}
+		function calculator(AIchoice,choice)
+		{
+			if(AIchoice==='Rock' && choice==='Scissor'){
+				document.getElementById("condition").innerText="AI won"
+				aiscore+=1;
+			}else if(AIchoice==='Rock' && choice==='Paper'){
+				document.getElementById("condition").innerText="You won"
+				humanscore+=1;
+			}else if(AIchoice==='Paper' && choice==='Rock'){
+				document.getElementById("condition").innerText="AI won"
+				aiscore+=1;
+			}else if(AIchoice==='Paper' && choice==='Scissor'){
+				document.getElementById("condition").innerText="You won"
+				humanscore+=1;
+			}else if(AIchoice==='Scissor' && choice==='Rock'){
+				document.getElementById("condition").innerText="You won"
+				humanscore+=1;
+			}else if(AIchoice==='Scissor' && choice==='Paper'){
+				document.getElementById("condition").innerText="AI won"
+				aiscore+=1;
+			}else if(AIchoice===choice){
+				document.getElementById("condition").innerText="Draw"
+			}else{
+				document.getElementById("condition").innerText="Draw"
+			}
+			
+		}
+		function score(){
+			document.getElementById("score").innerText=' AI score = '+aiscore+ ' Human score = '+humanscore;
+		}
+		function endgame(bb){
+			if(bb<=0){
+				alert("Error")
+
+			}
+			else if(humanscore==bb){
+				console.log(bb)
+				ele.remove();
+				document.getElementById("finale").style.display="block";
+				document.getElementById("finale").innerHTML= "You won :)" + humanscore +"-" +aiscore + '<p></p>'+'<button class="btn btn-success"  type="button" onClick="window.location.reload();">Play again</button>';
+
+			}else if(aiscore==bb){
+				console.log(bb)
+				ele.remove();
+				document.getElementById("finale").style.display="block";
+				document.getElementById("finale").innerHTML= "AI won :)" + humanscore +"-" +aiscore +'<p></p>'+ '<button class="btn btn-success"  type="button" onClick="window.location.reload();">Play again</button>';
+			}
+			}
+	</script>
+</body>
+</html>
